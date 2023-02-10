@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
 
-    @Autowired
-    private JavaMailSender mailSender;
+//    @Autowired
+//    private JavaMailSender mailSender;
 
     @Autowired
     private MailConstants mailConstants;
@@ -33,6 +33,6 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(message + "\n\n" + confirmationUrl + "\n\n\nw/ Keyist Team");
-        mailSender.send(email);
+        //mailSender.send(email);
     }
 }

@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PasswordForgotListener implements ApplicationListener<OnPasswordForgotRequestEvent> {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    // @Autowired
+    // private JavaMailSender mailSender;
 
     @Autowired
     private MailConstants mailConstants;
@@ -34,6 +34,6 @@ public class PasswordForgotListener implements ApplicationListener<OnPasswordFor
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(message + "\n\n" + confirmationUrl + "\n\n\nw/ Keyist Team");
-        mailSender.send(email);
+        //mailSender.send(email);
     }
 }

@@ -23,15 +23,15 @@ public class SwaggerConfiguration {
     @Autowired
     private SwaggerConstants swaggerConstants;
 
-    @Bean
-    public Doclet api() {
-        return new Docket(DocumentationType.SWAGGER_2).host(swaggerConstants.getHostAddress()).pathMapping(swaggerConstants.getHostPath())
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(PathSelectors.any())
-                .build();
-    }
+//    @Bean
+//    public Doclet api() {
+//        return (Doclet) new Docket(DocumentationType.SWAGGER_2).host(swaggerConstants.getHostAddress()).pathMapping(swaggerConstants.getHostPath())
+//                .apiInfo(apiInfo())
+//                .select()
+//                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+//                .paths(PathSelectors.any())
+//                .build();
+//    }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
