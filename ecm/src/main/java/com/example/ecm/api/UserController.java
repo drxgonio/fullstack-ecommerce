@@ -1,6 +1,8 @@
 package com.example.ecm.api;
 
+import com.example.ecm.model.entity.User;
 import com.example.ecm.model.request.user.PasswordResetRequest;
+import com.example.ecm.model.request.user.RegisterUserRequest;
 import com.example.ecm.model.request.user.UpdateUserAddressRequest;
 import com.example.ecm.model.request.user.UpdateUserRequest;
 import com.example.ecm.model.response.user.UserResponse;
@@ -27,6 +29,15 @@ public class UserController extends ApiController {
     public ResponseEntity<UserResponse> getUser() {
         UserResponse userResponse = userService.fetchUser();
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/account/registration")
+    public ResponseEntity<UserResponse> createUser(@RequestBody @Validated RegisterUserRequest registerUserRequest) {
+        User user = new User();
+        user.setEmail(registerUserRequest.getEmail());
+        user.setPassword(registerUserRequest.getPassword());
+        userService.saveUser(user);
+        return new ResponseEntity<>(new UserResponse(), HttpStatus.OK);
     }
 
     @PutMapping(value = "/account")
