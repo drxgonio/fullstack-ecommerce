@@ -1,9 +1,8 @@
 package com.example.ecm.api;
 
 
-import com.example.ecm.model.entity.User;
 import com.example.ecm.model.request.user.*;
-import com.example.ecm.service.TokenService;
+import com.example.ecm.service.RefreshTokenService;
 import com.example.ecm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,19 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class PublicUserController extends PublicApiController {
 
     private final UserService userService;
-    private final TokenService tokenService;
+    private final RefreshTokenService tokenService;
 
     @Autowired
-    public PublicUserController(UserService userService, TokenService tokenService) {
+    public PublicUserController(UserService userService, RefreshTokenService tokenService) {
         this.userService = userService;
         this.tokenService = tokenService;
-    }
-
-    @PostMapping(value = "/account/registration")
-    public ResponseEntity<HttpStatus> registerUser(@RequestBody @Validated RegisterUserRequest registerUserRequest) {
-        User user = userService.register(registerUserRequest);
-        tokenService.createEmailConfirmToken(user);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/account/registration/validate")

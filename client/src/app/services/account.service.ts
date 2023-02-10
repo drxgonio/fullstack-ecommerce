@@ -7,7 +7,7 @@ import { config } from '../../config/local';
 @Injectable()
 export class AccountService {
 
-  publicUrl = `${config.apiUrl}/api/public/account`;
+  publicUrl = `${config.apiUrl}/api/auth/account`;
   url = `${config.apiUrl}/api/account`;
 
   constructor(private httpClient: HttpClient) {

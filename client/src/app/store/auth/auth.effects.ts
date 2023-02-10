@@ -46,8 +46,9 @@ export class AuthEffects {
       }),
       switchMap((credentials: { email: string, password: string, password2: string }) => {
         return this.tokenService.obtainAccessToken(credentials.email, credentials.password)
-          .pipe(switchMap(res => {
-            this.tokenService.saveToken(res);
+          .pipe(switchMap((res: any) => {
+            console.log(res)
+            this.tokenService.saveToken(res.token);
             this.router.navigate(['/']);
             return [
               { type: AuthActions.SIGN_IN_SUCCESS, payload: { effect: AuthActions.SIGN_IN } },
@@ -110,6 +111,6 @@ export class AuthEffects {
 
 
   constructor(private actions$: Actions, private tokenService: TokenService,
-              private router: Router, private accountService: AccountService) {
+    private router: Router, private accountService: AccountService) {
   }
 }

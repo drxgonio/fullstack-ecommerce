@@ -31,15 +31,6 @@ public class UserController extends ApiController {
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/account/registration")
-    public ResponseEntity<UserResponse> createUser(@RequestBody @Validated RegisterUserRequest registerUserRequest) {
-        User user = new User();
-        user.setEmail(registerUserRequest.getEmail());
-        user.setPassword(registerUserRequest.getPassword());
-        userService.saveUser(user);
-        return new ResponseEntity<>(new UserResponse(), HttpStatus.OK);
-    }
-
     @PutMapping(value = "/account")
     public ResponseEntity<UserResponse> updateUser(@RequestBody @Validated UpdateUserRequest updateUserRequest) {
         UserResponse userResponse = userService.updateUser(updateUserRequest);

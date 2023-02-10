@@ -66,6 +66,11 @@ swagger:
     name: TriPhan Api Documentation
 management:
   security: enabled:false
+jwt:
+  app:
+    secret: abcdef
+    jwtExpirationMs: 3600000
+    jwtRefreshExpirationMs: 86400000
 logging:
   level:
     org:

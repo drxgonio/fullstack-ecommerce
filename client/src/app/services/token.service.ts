@@ -7,7 +7,7 @@ import * as Cookies from 'js-cookie';
 @Injectable()
 export class TokenService {
 
-  url = `${config.authUrl}/oauth/token`;
+  url = `${config.authUrl}/api/auth/signin`;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -17,16 +17,11 @@ export class TokenService {
     let body: HttpParams = new HttpParams();
     body = body.append('username', email);
     body = body.append('password', password);
-    body = body.append('scope', 'read write');
-    body = body.append('grant_type', 'password');
-    body = body.append('client_id', config.clientId);
 
 
     return this.httpClient.post(this.url, body, {
       headers: {
-        'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-        Authorization: 'Basic '
-          + btoa(`${config.clientId}:${config.clientSecret}`)
+        'Content-type': 'application/x-www-form-urlencoded;',
       }
     });
 
@@ -48,12 +43,13 @@ export class TokenService {
   }
 
   saveToken(token): void {
-    Cookies.set('usr', JSON.stringify(token), { expires: 365 });
+    console.log(token)
+    Cookies.set('usr', token, { expires: 365 });
   }
 
 
   removeToken() {
-    Cookies.remove('usr');
+    //Cookies.remove('usr');
   }
 
   getToken() {

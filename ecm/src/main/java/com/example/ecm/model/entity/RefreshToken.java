@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -14,7 +16,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @ToString
-public class VerificationToken {
+public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +31,6 @@ public class VerificationToken {
     private User user;
 
     @Column(name = "expiry_date")
-    private Date expiryDate;
+    private Instant expiryDate;
 
 }

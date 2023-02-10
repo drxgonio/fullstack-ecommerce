@@ -20,6 +20,7 @@ export class NewlyAddedComponent implements OnInit {
 
   ngOnInit() {
     this.showcaseState = this.store.select('showcase');
+    console.log(this.showcaseState)
     this.showcaseState
       .pipe(take(1))
       .subscribe(
