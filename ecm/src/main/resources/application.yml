@@ -55,15 +55,15 @@ server:
   port: '8080'
 swagger:
   contact:
-    email: antkaynak1@gmail.com
-    url: https://www.keyist.tech
+    email: test@gmail.com
+    url: test
     name: Ant Kaynak
   host:
     path: /
     address: localhost:8080
   api:
     version: v1
-    name: Keyist Api Documentation
+    name: TriPhan Api Documentation
 management:
   security: enabled:false
 logging:
