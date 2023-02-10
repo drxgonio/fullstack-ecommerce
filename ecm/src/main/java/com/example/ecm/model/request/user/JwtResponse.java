@@ -1,10 +1,13 @@
 package com.example.ecm.model.request.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -12,20 +15,20 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class JwtResponse {
-  private String token;
-  private String type = "Bearer";
-  private String refreshToken;
-  private Long id;
-  private String username;
-  private String email;
-  private List<String> roles;
+  private String token_type = "bearer";
 
-  public JwtResponse(String accessToken, String refreshToken, Long id, String username, String email, List<String> roles) {
-    this.token = accessToken;
+  @JsonProperty("access_token")
+  private String token;
+  @JsonProperty("refresh_token")
+  private String refreshToken;
+
+  @JsonProperty("expires_in")
+  private Instant expiresIn;
+  private String scope = "read,write";
+
+  public JwtResponse(String token, String refreshToken, Instant expiresIn) {
+    this.token= token;
     this.refreshToken = refreshToken;
-    this.id = id;
-    this.username = username;
-    this.email = email;
-    this.roles = roles;
+    this.expiresIn = expiresIn;
   }
 }

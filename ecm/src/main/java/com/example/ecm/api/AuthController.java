@@ -77,8 +77,7 @@ public class AuthController {
 
     RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
-    return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
-        userDetails.getUsername(), userDetails.getEmail(), roles));
+    return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), refreshToken.getExpiryDate()));
   }
 
   @PostMapping(value = "/account/registration")
@@ -90,6 +89,7 @@ public class AuthController {
       User user = new User();
       user.setEmail(registerUserRequest.getEmail());
       user.setPassword(encoder.encode(registerUserRequest.getPassword()));
+      user.setEmailVerified(0);
       User sa = userService.saveUser(user);
       refreshTokenService.createRefreshToken(sa.getId());
     }

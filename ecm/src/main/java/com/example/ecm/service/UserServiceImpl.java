@@ -12,6 +12,7 @@ import com.example.ecm.model.request.user.UpdateUserRequest;
 import com.example.ecm.model.response.user.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser() {
+        Authentication a=SecurityContextHolder.getContext().getAuthentication();
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         if (Objects.isNull(userName)) {
             throw new AccessDeniedException("Invalid access");

@@ -35,6 +35,7 @@ export class SigninComponent implements OnInit {
 
 
   onSubmitted() {
+    console.log("Sign in" + this.signInForm.value.email)
     this.store.dispatch(new AuthActions.SignIn({
       email: this.signInForm.value.email,
       password: this.signInForm.value.password
