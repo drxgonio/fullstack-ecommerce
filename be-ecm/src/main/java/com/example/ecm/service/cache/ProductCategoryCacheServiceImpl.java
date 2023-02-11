@@ -22,7 +22,7 @@ public class ProductCategoryCacheServiceImpl implements ProductCategoryCacheServ
     }
 
     @Override
-    @Cacheable(key = "#root.methodName", unless = "#result.size()==0")
+    //@Cacheable(key = "#root.methodName", unless = "#result.size()==0")
     public List<ProductCategory> findAllByOrderByName() {
         return productCategoryRepository.findAllByOrderByName();
     }

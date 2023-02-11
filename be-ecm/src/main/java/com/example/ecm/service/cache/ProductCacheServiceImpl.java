@@ -24,20 +24,20 @@ public class ProductCacheServiceImpl implements ProductCacheService {
     }
 
     @Override
-    @Cacheable(key = "#url")
+    //@Cacheable(key = "#url")
     public Product findByUrl(String url) {
         return productRepository.findByUrl(url).orElse(null);
     }
 
 
     @Override
-    @Cacheable(key = "#root.methodName", unless = "#result.size()==0")
+    //@Cacheable(key = "#root.methodName", unless = "#result.size()==0")
     public List<Product> findTop8ByOrderByDateCreatedDesc() {
         return productRepository.findTop8ByOrderByDateCreatedDesc();
     }
 
     @Override
-    @Cacheable(key = "{#productCategory.name,#id}", unless = "#result.size()==0")
+    //@Cacheable(key = "{#productCategory.name,#id}", unless = "#result.size()==0")
     public List<Product> getRelatedProducts(ProductCategory productCategory, Long id) {
         List<Product> productList = productRepository.findTop8ByProductCategoryAndIdIsNot(productCategory, id);
         if (productList.size() < 8) {

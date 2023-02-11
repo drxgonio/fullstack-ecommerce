@@ -7,7 +7,7 @@ import * as Cookies from 'js-cookie';
 @Injectable()
 export class TokenService {
 
-  url = `${config.authUrl}/api/auth/signin`;
+  url = `${config.authUrl}/api/auth/sign-in`;
 
   constructor(private httpClient: HttpClient) {
   }
