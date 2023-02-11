@@ -21,13 +21,13 @@ public class ProductVariantCacheServiceImpl implements ProductVariantCacheServic
     }
 
     @Override
-    //@Cacheable(key = "{#root.methodName,#id}")
+    ////@Cacheable(key = "{#root.methodName,#id}")
     public ProductVariant findById(Long id) {
         return productVariantRepository.findById(id).orElse(null);
     }
 
     @Override
-    //@Cacheable(key = "#root.methodName", unless = "#result.size()==0")
+    ////@Cacheable(key = "#root.methodName", unless = "#result.size()==0")
     public List<ProductVariant> findTop8ByOrderBySellCountDesc() {
         return productVariantRepository.findTop8ByOrderBySellCountDesc();
     }

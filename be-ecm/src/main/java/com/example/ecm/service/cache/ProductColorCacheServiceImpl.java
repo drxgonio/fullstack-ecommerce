@@ -22,7 +22,7 @@ public class ProductColorCacheServiceImpl implements ProductColorCacheService {
     }
 
     @Override
-    @Cacheable(key = "#root.methodName", unless = "#result.size()==0")
+    //@Cacheable(key = "#root.methodName", unless = "#result.size()==0")
     public List<Color> findAll() {
         return colorRepository.findAll();
     }
