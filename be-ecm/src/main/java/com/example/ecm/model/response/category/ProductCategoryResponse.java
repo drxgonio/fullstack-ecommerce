@@ -7,7 +7,4 @@ import lombok.Data;
 @Data
 public class ProductCategoryResponse {
     private CategoryDTO category;
-
-  public void setCategory(CategoryDTO build) {
-  }
 }
