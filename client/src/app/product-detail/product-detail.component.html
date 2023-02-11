@@ -43,7 +43,7 @@
             <div *ngIf="(cartState | async).loading" class="loader" style="top:0; left: 25%"></div>
             <button *ngIf="activeProductVariant.stock > 0" (click)="addToCart(amount)"
               [disabled]="(cartState | async).loading"
-              [style.display]="(cartState | async).loading ? 'none' : 'inline-block'" class="btn btn-info">Add to cart
+              [style.display]="(cartState | async).loading ? 'none' : 'inline-block'" class="btn btn-info">Thêm vào giỏ hàng
             </button>
             <button *ngIf="activeProductVariant.stock === 0" [disabled]="(cartState | async).loading"
               [style.display]="(cartState | async).loading ? 'none' : 'inline-block'" class="btn out-stock">Out Of Stock
@@ -54,13 +54,13 @@
 
         <div class="row">
           <div class="variant-title col-md-4 {{activeTab === 0 ? 'active': ''}}" (click)="setActiveTab(0)">
-            <p>Variants</p>
+            <p>Xem thêm</p>
           </div>
           <div class="product-detail-title col-md-4 {{activeTab === 1 ? 'active': ''}}" (click)="setActiveTab(1)">
-            <p>Detail</p>
+            <p>Chi tiết</p>
           </div>
           <div class="delivery-title col-md-4 {{activeTab === 2 ? 'active': ''}}" (click)="setActiveTab(2)">
-            <p>Delivery</p>
+            <p>Giao hàng</p>
           </div>
         </div>
 

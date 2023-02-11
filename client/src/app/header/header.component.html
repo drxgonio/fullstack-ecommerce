@@ -13,21 +13,21 @@
       <div class="home">
         <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
           <a class="nav-link" routerLinkActive="active" routerLink="/"
-            [routerLinkActiveOptions]="{exact: true}">Home</a>
+            [routerLinkActiveOptions]="{exact: true}">Trang chủ</a>
         </div>
       </div>
 
       <div class="products">
         <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
           <a class="nav-link" routerLinkActive="active" routerLink="/browse"
-            [routerLinkActiveOptions]="{exact: true}">Products</a>
+            [routerLinkActiveOptions]="{exact: true}">Sản phẩm</a>
         </div>
       </div>
 
       <div class="about">
         <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
           <a class="nav-link" routerLinkActive="active" routerLink="/faq"
-            [routerLinkActiveOptions]="{exact: true}">About</a>
+            [routerLinkActiveOptions]="{exact: true}">Thông tin liên hệ</a>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@
     <div class="search navbar-nav">
       <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
         <div class="form-inline search">
-          <input #search class="form-control" type="search" placeholder="Search" (keyup.enter)="searchProduct(search)"
+          <input #search class="form-control" type="search" placeholder="Tìm kiếm" (keyup.enter)="searchProduct(search)"
             aria-label="Search">
         </div>
       </div>
@@ -64,29 +64,29 @@
             <div>
               <a routerLink="/account/information" routerLinkActive="active">
                 <i class="fa fa-user-o" aria-hidden="true"></i>
-                <p>User Information</p>
+                <p>Thông tin người dùng</p>
               </a>
             </div>
             <div>
               <a routerLink="/account/orders" routerLinkActive="active"> <i class="fa fa-archive"
                   aria-hidden="true"></i>
-                <p>Orders</p>
+                <p>Đơn hàng</p>
               </a>
             </div>
             <div>
               <a routerLink="/account/address" routerLinkActive="active"><i class="fa fa-home" aria-hidden="true"></i>
-                <p>Address</p>
+                <p>Địa chỉ</p>
               </a>
             </div>
             <div>
               <a routerLink="/account/help" routerLinkActive="active"> <i class="fa fa-question-circle-o"
                   aria-hidden="true"></i>
-                <p>Help</p>
+                <p>Trợ giúp</p>
               </a>
             </div>
             <div>
               <a (click)="userSignOut()"> <i class="fa fa fa-sign-out" aria-hidden="true"></i>
-                <p>Logout</p>
+                <p>Đăng xuất</p>
               </a>
             </div>
           </div>

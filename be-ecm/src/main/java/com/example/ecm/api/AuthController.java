@@ -15,6 +15,7 @@ import com.example.ecm.security.JwtUtils;
 import com.example.ecm.security.UserDetailsImpl;
 import com.example.ecm.service.RefreshTokenService;
 import com.example.ecm.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -57,13 +58,9 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   @PostMapping(
-      path = "/signin",
+      path = "/sign-in",
       consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-  public ResponseEntity<?> authenticateUser(@RequestBody MultiValueMap paramMap ) {
-
-    LoginUser loginUser= new LoginUser();
-    loginUser.setUsername("a@gmail.com");
-    loginUser.setPassword("123456");
+  public ResponseEntity<?> authenticateUser( LoginUser loginUser) {
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
 
@@ -82,17 +79,12 @@ public class AuthController {
 
   @PostMapping(value = "/account/registration")
   public ResponseEntity<UserResponse> createUser(@RequestBody @Validated RegisterUserRequest registerUserRequest) {
-
-
-    User a = userService.findByEmail(registerUserRequest.getEmail());
-    if(a == null){
-      User user = new User();
-      user.setEmail(registerUserRequest.getEmail());
-      user.setPassword(encoder.encode(registerUserRequest.getPassword()));
-      user.setEmailVerified(0);
-      User sa = userService.saveUser(user);
-      refreshTokenService.createRefreshToken(sa.getId());
-    }
+    User user = new User();
+    user.setEmail(registerUserRequest.getEmail());
+    user.setPassword(encoder.encode(registerUserRequest.getPassword()));
+    user.setEmailVerified(0);
+    User sa = userService.saveUser(user);
+    refreshTokenService.createRefreshToken(sa.getId());
     return new ResponseEntity<>(new UserResponse(), HttpStatus.OK);
   }
 
