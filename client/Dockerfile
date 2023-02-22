@@ -1,3 +1,6 @@
+
+#npm run build -- --configuration production --deploy-url=/ecm-angular-proj/client/
+
 FROM node:12.7-alpine AS build
 
 WORKDIR /usr/src/app
