@@ -1,308 +1,563 @@
-use keyist;
+-- MySQL dump 10.13  Distrib 8.0.29, for Linux (aarch64)
+--
+-- Host: localhost    Database: keyist
+-- ------------------------------------------------------
+-- Server version	8.0.29
 
-drop table if exists color;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-create table color
-(
-    id   int auto_increment
-        primary key,
-    name varchar(50) not null,
-    hex  varchar(50) not null,
-    constraint color_hex_uindex
-        unique (hex),
-    constraint color_name_uindex
-        unique (name)
-);
+--
+-- Table structure for table `cart`
+--
 
-drop table if exists discount;
+DROP TABLE IF EXISTS `cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cart` (
+                        `id` int NOT NULL AUTO_INCREMENT,
+                        `user_id` int DEFAULT NULL,
+                        `discount_id` int DEFAULT NULL,
+                        `total_cart_price` float NOT NULL DEFAULT '0',
+                        `total_cargo_price` float NOT NULL DEFAULT '0',
+                        `total_price` float NOT NULL DEFAULT '0',
+                        `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        PRIMARY KEY (`id`),
+                        KEY `discount_id` (`discount_id`),
+                        KEY `user_id` (`user_id`),
+                        CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+                        CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table discount
-(
-    id               int auto_increment
-        primary key,
-    code             varchar(240)         not null,
-    discount_percent int                  not null,
-    status           tinyint(1) default 1 not null,
-    constraint code
-        unique (code)
-);
+--
+-- Dumping data for table `cart`
+--
 
-drop table if exists oauth_access_token;
+LOCK TABLES `cart` WRITE;
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` VALUES (3,2,NULL,9.99,5,14.99,'2023-02-11 07:39:25');
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
+UNLOCK TABLES;
 
-create table oauth_access_token
-(
-    token_id          varchar(255) null,
-    token             mediumblob   null,
-    authentication_id varchar(255) not null
-        primary key,
-    user_name         varchar(255) null,
-    client_id         varchar(255) null,
-    authentication    mediumblob   null,
-    refresh_token     varchar(255) null
-);
+--
+-- Table structure for table `cart_item`
+--
 
-drop table if exists oauth_approvals;
+DROP TABLE IF EXISTS `cart_item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cart_item` (
+                             `id` int NOT NULL AUTO_INCREMENT,
+                             `cart_id` int NOT NULL,
+                             `product_variant_id` int DEFAULT NULL,
+                             `amount` int NOT NULL,
+                             PRIMARY KEY (`id`),
+                             KEY `product_variant_id` (`product_variant_id`),
+                             KEY `cart_id` (`cart_id`),
+                             CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`),
+                             CONSTRAINT `product_variant_id` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variant` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table oauth_approvals
-(
-    userId         varchar(255)                            null,
-    clientId       varchar(255)                            null,
-    scope          varchar(255)                            null,
-    status         varchar(10)                             null,
-    expiresAt      timestamp default CURRENT_TIMESTAMP     not null on update CURRENT_TIMESTAMP,
-    lastModifiedAt timestamp not null
-);
+--
+-- Dumping data for table `cart_item`
+--
 
-drop table if exists oauth_client_details;
+LOCK TABLES `cart_item` WRITE;
+/*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
+INSERT INTO `cart_item` VALUES (3,3,1,1);
+/*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
+UNLOCK TABLES;
 
-create table oauth_client_details
-(
-    client_id               varchar(255)  not null
-        primary key,
-    resource_ids            varchar(255)  null,
-    client_secret           varchar(255)  null,
-    scope                   varchar(255)  null,
-    authorized_grant_types  varchar(255)  null,
-    web_server_redirect_uri varchar(255)  null,
-    authorities             varchar(255)  null,
-    access_token_validity   int           null,
-    refresh_token_validity  int           null,
-    additional_information  varchar(4096) null,
-    autoapprove             varchar(255)  null
-);
+--
+-- Table structure for table `color`
+--
 
-drop table if exists oauth_client_token;
+DROP TABLE IF EXISTS `color`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `color` (
+                         `id` int NOT NULL AUTO_INCREMENT,
+                         `name` varchar(50) NOT NULL,
+                         `hex` varchar(50) NOT NULL,
+                         PRIMARY KEY (`id`),
+                         UNIQUE KEY `color_hex_uindex` (`hex`),
+                         UNIQUE KEY `color_name_uindex` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table oauth_client_token
-(
-    token_id          varchar(255) null,
-    token             mediumblob   null,
-    authentication_id varchar(255) not null
-        primary key,
-    user_name         varchar(255) null,
-    client_id         varchar(255) null
-);
+--
+-- Dumping data for table `color`
+--
 
-drop table if exists oauth_code;
+LOCK TABLES `color` WRITE;
+/*!40000 ALTER TABLE `color` DISABLE KEYS */;
+INSERT INTO `color` VALUES (1,'red','#ff144b');
+/*!40000 ALTER TABLE `color` ENABLE KEYS */;
+UNLOCK TABLES;
 
-create table oauth_code
-(
-    code           varchar(255) null,
-    authentication mediumblob   null
-);
+--
+-- Table structure for table `discount`
+--
 
-drop table if exists oauth_refresh_token;
+DROP TABLE IF EXISTS `discount`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `discount` (
+                            `id` int NOT NULL AUTO_INCREMENT,
+                            `code` varchar(240) NOT NULL,
+                            `discount_percent` int NOT NULL,
+                            `status` tinyint(1) NOT NULL DEFAULT '1',
+                            PRIMARY KEY (`id`),
+                            UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table oauth_refresh_token
-(
-    token_id       varchar(255) not null,
-    token          mediumblob   null,
-    authentication mediumblob   null
-);
+--
+-- Dumping data for table `discount`
+--
 
-drop table if exists product_category;
+LOCK TABLES `discount` WRITE;
+/*!40000 ALTER TABLE `discount` DISABLE KEYS */;
+/*!40000 ALTER TABLE `discount` ENABLE KEYS */;
+UNLOCK TABLES;
 
-create table product_category
-(
-    id   int auto_increment
-        primary key,
-    name varchar(50) not null,
-    constraint name
-        unique (name)
-);
+--
+-- Table structure for table `oauth_access_token`
+--
 
-drop table if exists product;
+DROP TABLE IF EXISTS `oauth_access_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `oauth_access_token` (
+                                      `token_id` varchar(255) DEFAULT NULL,
+                                      `token` mediumblob,
+                                      `authentication_id` varchar(255) NOT NULL,
+                                      `user_name` varchar(255) DEFAULT NULL,
+                                      `client_id` varchar(255) DEFAULT NULL,
+                                      `authentication` mediumblob,
+                                      `refresh_token` varchar(255) DEFAULT NULL,
+                                      PRIMARY KEY (`authentication_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table product
-(
-    id           int auto_increment
-        primary key,
-    category_id  int                                  null,
-    sku          varchar(50)                          not null,
-    name         varchar(100)                         not null,
-    url          varchar(100)                         not null,
-    long_desc    text                                 not null,
-    date_created timestamp  default CURRENT_TIMESTAMP not null,
-    last_updated timestamp  default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
-    unlimited    tinyint(1) default 1                 null,
-    constraint product_ibfk_1
-        foreign key (category_id) references product_category (id)
-);
+--
+-- Dumping data for table `oauth_access_token`
+--
 
-create index category_id
-    on product (category_id);
+LOCK TABLES `oauth_access_token` WRITE;
+/*!40000 ALTER TABLE `oauth_access_token` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_access_token` ENABLE KEYS */;
+UNLOCK TABLES;
 
-drop table if exists product_variant;
+--
+-- Table structure for table `oauth_approvals`
+--
 
-create table product_variant
-(
-    id          int auto_increment
-        primary key,
-    product_id  int           null,
-    color_id    int           not null,
-    width       varchar(100)  null,
-    height      varchar(100)  null,
-    price       float(100, 2) not null,
-    composition varchar(259)  null,
-    cargo_price float(100, 2) not null,
-    tax_percent int default 0 null,
-    sell_count  int default 0 null,
-    stock       int           not null,
-    live        tinyint(1)    not null,
-    image       varchar(250)  null,
-    thumb       varchar(250)  null,
-    constraint color_id
-        foreign key (color_id) references color (id),
-    constraint product_id
-        foreign key (product_id) references product (id)
-);
+DROP TABLE IF EXISTS `oauth_approvals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `oauth_approvals` (
+                                   `userId` varchar(255) DEFAULT NULL,
+                                   `clientId` varchar(255) DEFAULT NULL,
+                                   `scope` varchar(255) DEFAULT NULL,
+                                   `status` varchar(10) DEFAULT NULL,
+                                   `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                   `lastModifiedAt` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-drop table if exists user;
+--
+-- Dumping data for table `oauth_approvals`
+--
 
-create table user
-(
-    id                int auto_increment
-        primary key,
-    email             varchar(500)                         not null,
-    password          varchar(500)                         not null,
-    first_name        varchar(50)                          null,
-    last_name         varchar(50)                          null,
-    city              varchar(90)                          null,
-    state             varchar(20)                          null,
-    zip               varchar(12)                          null,
-    email_verified    tinyint(1) default 0                 null,
-    registration_date timestamp  default CURRENT_TIMESTAMP null,
-    phone             varchar(20)                          null,
-    country           varchar(20)                          null,
-    address           varchar(100)                         null,
-    constraint email
-        unique (email)
-);
+LOCK TABLES `oauth_approvals` WRITE;
+/*!40000 ALTER TABLE `oauth_approvals` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_approvals` ENABLE KEYS */;
+UNLOCK TABLES;
 
-drop table if exists cart;
+--
+-- Table structure for table `oauth_client_details`
+--
 
-create table cart
-(
-    id                int auto_increment
-        primary key,
-    user_id           int                                 null,
-    discount_id       int                                 null,
-    total_cart_price  float     default 0                 not null,
-    total_cargo_price float     default 0                 not null,
-    total_price       float     default 0                 not null,
-    date_created      timestamp default CURRENT_TIMESTAMP not null,
-    constraint cart_ibfk_1
-        foreign key (user_id) references user (id),
-    constraint cart_ibfk_2
-        foreign key (discount_id) references discount (id)
-);
+DROP TABLE IF EXISTS `oauth_client_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `oauth_client_details` (
+                                        `client_id` varchar(255) NOT NULL,
+                                        `resource_ids` varchar(255) DEFAULT NULL,
+                                        `client_secret` varchar(255) DEFAULT NULL,
+                                        `scope` varchar(255) DEFAULT NULL,
+                                        `authorized_grant_types` varchar(255) DEFAULT NULL,
+                                        `web_server_redirect_uri` varchar(255) DEFAULT NULL,
+                                        `authorities` varchar(255) DEFAULT NULL,
+                                        `access_token_validity` int DEFAULT NULL,
+                                        `refresh_token_validity` int DEFAULT NULL,
+                                        `additional_information` varchar(4096) DEFAULT NULL,
+                                        `autoapprove` varchar(255) DEFAULT NULL,
+                                        PRIMARY KEY (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create index discount_id
-    on cart (discount_id);
+--
+-- Dumping data for table `oauth_client_details`
+--
 
-create index user_id
-    on cart (user_id);
+LOCK TABLES `oauth_client_details` WRITE;
+/*!40000 ALTER TABLE `oauth_client_details` DISABLE KEYS */;
+INSERT INTO `oauth_client_details` VALUES ('test','resource-server-rest-api','$2a$04$v8DNBoc36pw4c7b7Xyq/aeSpGneF9WciZUI9FibVz0neksUcPBXVS','read,write','password,authorization_code,refresh_token,implicit',NULL,'USER',10800,2592000,NULL,NULL);
+/*!40000 ALTER TABLE `oauth_client_details` ENABLE KEYS */;
+UNLOCK TABLES;
 
-drop table if exists cart_item;
+--
+-- Table structure for table `oauth_client_token`
+--
 
-create table cart_item
-(
-    id                 int auto_increment
-        primary key,
-    cart_id            int not null,
-    product_variant_id int null,
-    amount             int not null,
-    constraint cart_item_ibfk_1
-        foreign key (cart_id) references cart (id),
-    constraint product_variant_id
-        foreign key (product_variant_id) references product_variant (id)
-);
+DROP TABLE IF EXISTS `oauth_client_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `oauth_client_token` (
+                                      `token_id` varchar(255) DEFAULT NULL,
+                                      `token` mediumblob,
+                                      `authentication_id` varchar(255) NOT NULL,
+                                      `user_name` varchar(255) DEFAULT NULL,
+                                      `client_id` varchar(255) DEFAULT NULL,
+                                      PRIMARY KEY (`authentication_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create index cart_id
-    on cart_item (cart_id);
+--
+-- Dumping data for table `oauth_client_token`
+--
 
-drop table if exists orders;
+LOCK TABLES `oauth_client_token` WRITE;
+/*!40000 ALTER TABLE `oauth_client_token` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_client_token` ENABLE KEYS */;
+UNLOCK TABLES;
 
-create table orders
-(
-    id                int auto_increment
-        primary key,
-    user_id           int                                  not null,
-    ship_name         varchar(100)                         not null,
-    ship_address      varchar(100)                         not null,
-    billing_address   varchar(100)                         not null,
-    city              varchar(50)                          not null,
-    state             varchar(50)                          not null,
-    zip               varchar(20)                          null,
-    country           varchar(50)                          not null,
-    phone             varchar(20)                          not null,
-    total_price       float                                not null,
-    total_cargo_price float                                not null,
-    discount_id       int                                  null,
-    date              timestamp  default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
-    shipped           tinyint(1) default 0                 not null,
-    cargo_firm        varchar(100)                         null,
-    tracking_number   varchar(80)                          null,
-    constraint orders_ibfk_1
-        foreign key (user_id) references user (id),
-    constraint orders_ibfk_2
-        foreign key (discount_id) references discount (id)
-);
+--
+-- Table structure for table `oauth_code`
+--
 
-drop table if exists order_detail;
+DROP TABLE IF EXISTS `oauth_code`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `oauth_code` (
+                              `code` varchar(255) DEFAULT NULL,
+                              `authentication` mediumblob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table order_detail
-(
-    id                 int auto_increment
-        primary key,
-    order_id           int not null,
-    product_variant_id int null,
-    amount             int not null,
-    constraint order_detail_ibfk_1
-        foreign key (order_id) references orders (id),
-    constraint product_variant_id_ibfk_1
-        foreign key (product_variant_id) references product_variant (id)
-);
+--
+-- Dumping data for table `oauth_code`
+--
 
-create index order_id
-    on order_detail (order_id);
+LOCK TABLES `oauth_code` WRITE;
+/*!40000 ALTER TABLE `oauth_code` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_code` ENABLE KEYS */;
+UNLOCK TABLES;
 
-create index discount_id
-    on orders (discount_id);
+--
+-- Table structure for table `oauth_refresh_token`
+--
 
-create index user_id
-    on orders (user_id);
+DROP TABLE IF EXISTS `oauth_refresh_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `oauth_refresh_token` (
+                                       `token_id` varchar(255) NOT NULL,
+                                       `token` mediumblob,
+                                       `authentication` mediumblob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-drop table if exists password_reset_token;
+--
+-- Dumping data for table `oauth_refresh_token`
+--
 
-create table password_reset_token
-(
-    id          int auto_increment
-        primary key,
-    token       varchar(255)                        not null,
-    expiry_date timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
-    user_id     int                                 not null,
-    constraint user_id
-        unique (user_id),
-    constraint password_reset_token_ibfk_1
-        foreign key (user_id) references user (id)
-);
+LOCK TABLES `oauth_refresh_token` WRITE;
+/*!40000 ALTER TABLE `oauth_refresh_token` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_refresh_token` ENABLE KEYS */;
+UNLOCK TABLES;
 
-drop table if exists verification_token;
+--
+-- Table structure for table `order_detail`
+--
 
-create table verification_token
-(
-    id          int auto_increment
-        primary key,
-    token       varchar(255)                        not null,
-    expiry_date timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
-    user_id     int                                 not null,
-    constraint verification_token_ibfk_1
-        foreign key (user_id) references user (id)
-);
+DROP TABLE IF EXISTS `order_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_detail` (
+                                `id` int NOT NULL AUTO_INCREMENT,
+                                `order_id` int NOT NULL,
+                                `product_variant_id` int DEFAULT NULL,
+                                `amount` int NOT NULL,
+                                PRIMARY KEY (`id`),
+                                KEY `product_variant_id_ibfk_1` (`product_variant_id`),
+                                KEY `order_id` (`order_id`),
+                                CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+                                CONSTRAINT `product_variant_id_ibfk_1` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variant` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO keyist.oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove) VALUES ('test', 'resource-server-rest-api', '$2a$04$v8DNBoc36pw4c7b7Xyq/aeSpGneF9WciZUI9FibVz0neksUcPBXVS', 'read,write', 'password,authorization_code,refresh_token,implicit', null, 'USER', 10800, 2592000, null, null);
-INSERT INTO keyist.product_category (id, name) VALUES (1, 'Test');
-INSERT INTO keyist.color (id, name, hex) VALUES (1, 'red', '#ff144b');
-INSERT INTO keyist.product (id, category_id, sku, name, url, long_desc, date_created, last_updated, unlimited) VALUES (1, 1, '000-0001', 'Test', 'test', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s. ', '2018-05-18 09:50:48', '2020-10-22 01:55:43', 1);
-INSERT INTO keyist.product_variant (id, product_id, color_id, width, height, price, composition, cargo_price, tax_percent, sell_count, stock, live, image, thumb) VALUES (1, 1, 1, '4cm', '10cm', 9.99, 'Copper 70%, Zinc 30%', 5, 10, 6, 1000, 1, 'image-url-here', 'image-url-here');
+--
+-- Dumping data for table `order_detail`
+--
+
+LOCK TABLES `order_detail` WRITE;
+/*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
+INSERT INTO `order_detail` VALUES (1,1,2,2);
+/*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders` (
+                          `id` int NOT NULL AUTO_INCREMENT,
+                          `user_id` int NOT NULL,
+                          `ship_name` varchar(100) NOT NULL,
+                          `ship_address` varchar(100) NOT NULL,
+                          `billing_address` varchar(100) NOT NULL,
+                          `city` varchar(50) NOT NULL,
+                          `state` varchar(50) NOT NULL,
+                          `zip` varchar(20) DEFAULT NULL,
+                          `country` varchar(50) NOT NULL,
+                          `phone` varchar(20) NOT NULL,
+                          `total_price` float NOT NULL,
+                          `total_cargo_price` float NOT NULL,
+                          `discount_id` int DEFAULT NULL,
+                          `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                          `shipped` tinyint(1) NOT NULL DEFAULT '0',
+                          `cargo_firm` varchar(100) DEFAULT NULL,
+                          `tracking_number` varchar(80) DEFAULT NULL,
+                          PRIMARY KEY (`id`),
+                          KEY `discount_id` (`discount_id`),
+                          KEY `user_id` (`user_id`),
+                          CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+                          CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (1,2,'qazx','addeasad','addeasad','HCM','Sasv','70000','Ho chi minh','77878786555',30.2,10,NULL,'2023-02-10 23:49:14',0,NULL,NULL);
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `password_reset_token`
+--
+
+DROP TABLE IF EXISTS `password_reset_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `password_reset_token` (
+                                        `id` int NOT NULL AUTO_INCREMENT,
+                                        `token` varchar(255) NOT NULL,
+                                        `expiry_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                        `user_id` int NOT NULL,
+                                        PRIMARY KEY (`id`),
+                                        UNIQUE KEY `user_id` (`user_id`),
+                                        CONSTRAINT `password_reset_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `password_reset_token`
+--
+
+LOCK TABLES `password_reset_token` WRITE;
+/*!40000 ALTER TABLE `password_reset_token` DISABLE KEYS */;
+/*!40000 ALTER TABLE `password_reset_token` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product`
+--
+
+DROP TABLE IF EXISTS `product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product` (
+                           `id` int NOT NULL AUTO_INCREMENT,
+                           `category_id` int DEFAULT NULL,
+                           `sku` varchar(50) NOT NULL,
+                           `name` varchar(100) NOT NULL,
+                           `url` varchar(100) NOT NULL,
+                           `long_desc` text NOT NULL,
+                           `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                           `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                           `unlimited` tinyint(1) DEFAULT '1',
+                           PRIMARY KEY (`id`),
+                           KEY `category_id` (`category_id`),
+                           CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product`
+--
+
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (1,1,'000-0001','Máy lạnh Daikin FTKS71GVMV 3.0 hp','my-home','Lorem Ipsum is simply dumy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s. ','2018-05-18 09:50:48','2023-02-11 07:26:42',1),(2,1,'000-0001','Tủ Đông SANAKY Inverter 305 Lít VH-4099A3','cutie-dog','Lorem Ipsum is simply dumy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s. ','2023-02-10 15:54:21','2023-02-11 07:26:42',1);
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_category`
+--
+
+DROP TABLE IF EXISTS `product_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_category` (
+                                    `id` int NOT NULL AUTO_INCREMENT,
+                                    `name` varchar(50) NOT NULL,
+                                    PRIMARY KEY (`id`),
+                                    UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_category`
+--
+
+LOCK TABLES `product_category` WRITE;
+/*!40000 ALTER TABLE `product_category` DISABLE KEYS */;
+INSERT INTO `product_category` VALUES (1,'Máy điều hoà'),(2,'Tủ lạnh');
+/*!40000 ALTER TABLE `product_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_variant`
+--
+
+DROP TABLE IF EXISTS `product_variant`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_variant` (
+                                   `id` int NOT NULL AUTO_INCREMENT,
+                                   `product_id` int DEFAULT NULL,
+                                   `color_id` int NOT NULL,
+                                   `width` varchar(100) DEFAULT NULL,
+                                   `height` varchar(100) DEFAULT NULL,
+                                   `price` float(100,2) NOT NULL,
+  `composition` varchar(259) DEFAULT NULL,
+  `cargo_price` float(100,2) NOT NULL,
+  `tax_percent` int DEFAULT '0',
+  `sell_count` int DEFAULT '0',
+  `stock` int NOT NULL,
+  `live` tinyint(1) NOT NULL,
+  `image` varchar(250) DEFAULT NULL,
+  `thumb` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `color_id` (`color_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `color_id` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`),
+  CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_variant`
+--
+
+LOCK TABLES `product_variant` WRITE;
+/*!40000 ALTER TABLE `product_variant` DISABLE KEYS */;
+INSERT INTO `product_variant` VALUES (1,1,1,'4cm','10cm',9.99,'Copper 70%, Zinc 30%',5.00,10,6,1000,1,'https://codienlanhvietxanh.com/uploads/product/Daikin_FTKS_1_.png','https://codienlanhvietxanh.com/uploads/product/Daikin_FTKS_1_.png'),(2,2,1,'4cm','10cm',10.10,'Copper 70%, Zinc 30%',5.00,10,8,1000,1,'https://codienlanhvietxanh.com/uploads/product/Daikin_FTKS_1_.png','https://codienlanhvietxanh.com/uploads/product/Daikin_FTKS_1_.png'),(3,2,1,'4cm','10cm',10.50,'Copper 70%, Zinc 30%',5.00,10,6,1000,1,'https://codienlanhvietxanh.com/uploads/product/Daikin_FTKS_1_.png','https://codienlanhvietxanh.com/uploads/product/Daikin_FTKS_1_.png');
+/*!40000 ALTER TABLE `product_variant` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+                        `id` int NOT NULL AUTO_INCREMENT,
+                        `email` varchar(500) NOT NULL,
+                        `password` varchar(500) NOT NULL,
+                        `first_name` varchar(50) DEFAULT NULL,
+                        `last_name` varchar(50) DEFAULT NULL,
+                        `city` varchar(90) DEFAULT NULL,
+                        `state` varchar(20) DEFAULT NULL,
+                        `zip` varchar(12) DEFAULT NULL,
+                        `email_verified` tinyint(1) DEFAULT '0',
+                        `registration_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                        `phone` varchar(20) DEFAULT NULL,
+                        `country` varchar(20) DEFAULT NULL,
+                        `address` varchar(100) DEFAULT NULL,
+                        PRIMARY KEY (`id`),
+                        UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (2,'a@gmail.com','$2a$10$fOfSOB.HHzYyIYVj4B3oqet1TfukKNUPtgfH1KjUr1snhnDfxuTjy','Tri','Phan',NULL,NULL,NULL,1,'2023-02-10 13:48:54','01234567899',NULL,NULL),(3,'tri@gmail.com','$2a$10$oLPHZL2jQ2jQQlv/iC9y0elK9Z2jLkVuKvyAaw8xsOorqcA3zVASq',NULL,NULL,NULL,NULL,NULL,0,'2023-02-11 07:40:41',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `verification_token`
+--
+
+DROP TABLE IF EXISTS `verification_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `verification_token` (
+                                      `id` int NOT NULL AUTO_INCREMENT,
+                                      `token` varchar(255) NOT NULL,
+                                      `expiry_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                      `user_id` int NOT NULL,
+                                      PRIMARY KEY (`id`),
+                                      KEY `verification_token_ibfk_1` (`user_id`),
+                                      CONSTRAINT `verification_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `verification_token`
+--
+
+LOCK TABLES `verification_token` WRITE;
+/*!40000 ALTER TABLE `verification_token` DISABLE KEYS */;
+INSERT INTO `verification_token` VALUES (24,'da471a9f-8dc9-40ed-b0a8-7c6a9164d259','2023-02-11 16:37:40',2),(25,'3222475a-5c42-45b8-8a88-ce8cb112d176','2023-02-11 16:39:57',2),(26,'7b7e7d5a-eff5-4142-8ce1-fe952f038ea1','2023-02-11 16:41:09',2),(27,'295e1373-9b4d-4ba1-80c7-d7822a02df67','2023-02-11 16:43:06',2),(28,'d900820f-c027-4aa8-b9ac-5606144d70f4','2023-02-11 16:47:00',2),(29,'460f4de6-908d-499c-9d64-2f49d2c468f3','2023-02-12 07:09:06',2),(30,'28b39731-ea22-4c3b-a642-daf39cfa2229','2023-02-12 07:40:42',3),(31,'750f9625-fdb2-4206-8130-0c088e7f918a','2023-02-12 07:40:42',2),(32,'c0ad7a5d-ce8d-416c-94d5-518356173a09','2023-02-12 07:52:47',2),(33,'98a066c8-68bf-4ca3-a3d1-22456f9a4aa8','2023-02-12 07:55:27',2);
+/*!40000 ALTER TABLE `verification_token` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-02-22  4:28:31
