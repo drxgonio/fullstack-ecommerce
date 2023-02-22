@@ -19,7 +19,13 @@ Step 2: Use the docker exec command to execute the mysqldump command inside the 
 docker exec <container_name_or_id> mysqldump --databases <database_name> -u <username> -p <password> > <output_file_name>.sql
 ```
 
-Step 3: Copy file dump to local machine. You need type: ls on terminal to check path first, after that you copy file from docker container to local:
+Step 3: Exit bash (have space in firt string):
+
+```sh
+ exit
+```
+
+Step 4: Copy file dump to local machine. You need type: ls on terminal to check path first, after that you copy file from docker container to local:
 
 ```sh
 docker cp <container-id>:<output-file>.sql .
