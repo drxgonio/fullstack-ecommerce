@@ -55,7 +55,7 @@ gcloud projects list
 Step 4: Gcloud init
 
 ```sh
-gcloud projects list
+gcloud init
 ```
 
 Step 5: Get app deploy 
@@ -65,6 +65,51 @@ gcloud app deploy
 ```
 
 Step 6: Verify on browser
+
+```sh
+https://PROJECT_ID.REGION_ID.r.appspot.com
+```
+
+## Deploy BE to GCP App Engine (1 project have only 1 application on App Engine so need create new project)
+
+Step 1: Need login with gcloud
+
+```sh
+gcloud auth login
+```
+
+Step 2: Set projectId 
+
+```sh
+gcloud config set project ecommerce-5c0af
+```
+
+
+Step 3: Get list project 
+
+```sh
+gcloud projects list
+```
+
+Step 4: Gcloud init
+
+```sh
+gcloud init
+```
+
+Step 5: Build project 
+
+```sh
+mvn clean package 
+```
+
+Step 6: Get app deploy 
+
+```sh
+gcloud app deploy 
+```
+
+Step 7: Verify on browser
 
 ```sh
 https://PROJECT_ID.REGION_ID.r.appspot.com

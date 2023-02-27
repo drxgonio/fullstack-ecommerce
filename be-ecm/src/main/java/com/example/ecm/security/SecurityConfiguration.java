@@ -68,6 +68,7 @@ public class SecurityConfiguration {
         .authorizeHttpRequests().requestMatchers("/api/auth/**","/api/public/**").permitAll()
 
         .requestMatchers("/api/test/**").permitAll()
+        .requestMatchers("/check").permitAll()
         .anyRequest().authenticated();
 
     http.authenticationProvider(authenticationProvider());
