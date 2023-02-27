@@ -55,7 +55,7 @@ gcloud projects list
 Step 4: Gcloud init
 
 ```sh
-gcloud projects list
+gcloud init
 ```
 
 Step 5: Get app deploy 
