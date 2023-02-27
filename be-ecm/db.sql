@@ -23,18 +23,18 @@ DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `user_id` int DEFAULT NULL,
-                        `discount_id` int DEFAULT NULL,
-                        `total_cart_price` float NOT NULL DEFAULT '0',
-                        `total_cargo_price` float NOT NULL DEFAULT '0',
-                        `total_price` float NOT NULL DEFAULT '0',
-                        `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                        PRIMARY KEY (`id`),
-                        KEY `discount_id` (`discount_id`),
-                        KEY `user_id` (`user_id`),
-                        CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-                        CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `discount_id` int DEFAULT NULL,
+  `total_cart_price` float NOT NULL DEFAULT '0',
+  `total_cargo_price` float NOT NULL DEFAULT '0',
+  `total_price` float NOT NULL DEFAULT '0',
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `discount_id` (`discount_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -56,15 +56,15 @@ DROP TABLE IF EXISTS `cart_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart_item` (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `cart_id` int NOT NULL,
-                             `product_variant_id` int DEFAULT NULL,
-                             `amount` int NOT NULL,
-                             PRIMARY KEY (`id`),
-                             KEY `product_variant_id` (`product_variant_id`),
-                             KEY `cart_id` (`cart_id`),
-                             CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`),
-                             CONSTRAINT `product_variant_id` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variant` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `cart_id` int NOT NULL,
+  `product_variant_id` int DEFAULT NULL,
+  `amount` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_variant_id` (`product_variant_id`),
+  KEY `cart_id` (`cart_id`),
+  CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`),
+  CONSTRAINT `product_variant_id` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variant` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -86,12 +86,12 @@ DROP TABLE IF EXISTS `color`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `color` (
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `name` varchar(50) NOT NULL,
-                         `hex` varchar(50) NOT NULL,
-                         PRIMARY KEY (`id`),
-                         UNIQUE KEY `color_hex_uindex` (`hex`),
-                         UNIQUE KEY `color_name_uindex` (`name`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `hex` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `color_hex_uindex` (`hex`),
+  UNIQUE KEY `color_name_uindex` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,12 +113,12 @@ DROP TABLE IF EXISTS `discount`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `discount` (
-                            `id` int NOT NULL AUTO_INCREMENT,
-                            `code` varchar(240) NOT NULL,
-                            `discount_percent` int NOT NULL,
-                            `status` tinyint(1) NOT NULL DEFAULT '1',
-                            PRIMARY KEY (`id`),
-                            UNIQUE KEY `code` (`code`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` varchar(240) NOT NULL,
+  `discount_percent` int NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -139,14 +139,14 @@ DROP TABLE IF EXISTS `oauth_access_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_access_token` (
-                                      `token_id` varchar(255) DEFAULT NULL,
-                                      `token` mediumblob,
-                                      `authentication_id` varchar(255) NOT NULL,
-                                      `user_name` varchar(255) DEFAULT NULL,
-                                      `client_id` varchar(255) DEFAULT NULL,
-                                      `authentication` mediumblob,
-                                      `refresh_token` varchar(255) DEFAULT NULL,
-                                      PRIMARY KEY (`authentication_id`)
+  `token_id` varchar(255) DEFAULT NULL,
+  `token` mediumblob,
+  `authentication_id` varchar(255) NOT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `client_id` varchar(255) DEFAULT NULL,
+  `authentication` mediumblob,
+  `refresh_token` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`authentication_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -167,12 +167,12 @@ DROP TABLE IF EXISTS `oauth_approvals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_approvals` (
-                                   `userId` varchar(255) DEFAULT NULL,
-                                   `clientId` varchar(255) DEFAULT NULL,
-                                   `scope` varchar(255) DEFAULT NULL,
-                                   `status` varchar(10) DEFAULT NULL,
-                                   `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                   `lastModifiedAt` timestamp NOT NULL
+  `userId` varchar(255) DEFAULT NULL,
+  `clientId` varchar(255) DEFAULT NULL,
+  `scope` varchar(255) DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `lastModifiedAt` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -193,18 +193,18 @@ DROP TABLE IF EXISTS `oauth_client_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_client_details` (
-                                        `client_id` varchar(255) NOT NULL,
-                                        `resource_ids` varchar(255) DEFAULT NULL,
-                                        `client_secret` varchar(255) DEFAULT NULL,
-                                        `scope` varchar(255) DEFAULT NULL,
-                                        `authorized_grant_types` varchar(255) DEFAULT NULL,
-                                        `web_server_redirect_uri` varchar(255) DEFAULT NULL,
-                                        `authorities` varchar(255) DEFAULT NULL,
-                                        `access_token_validity` int DEFAULT NULL,
-                                        `refresh_token_validity` int DEFAULT NULL,
-                                        `additional_information` varchar(4096) DEFAULT NULL,
-                                        `autoapprove` varchar(255) DEFAULT NULL,
-                                        PRIMARY KEY (`client_id`)
+  `client_id` varchar(255) NOT NULL,
+  `resource_ids` varchar(255) DEFAULT NULL,
+  `client_secret` varchar(255) DEFAULT NULL,
+  `scope` varchar(255) DEFAULT NULL,
+  `authorized_grant_types` varchar(255) DEFAULT NULL,
+  `web_server_redirect_uri` varchar(255) DEFAULT NULL,
+  `authorities` varchar(255) DEFAULT NULL,
+  `access_token_validity` int DEFAULT NULL,
+  `refresh_token_validity` int DEFAULT NULL,
+  `additional_information` varchar(4096) DEFAULT NULL,
+  `autoapprove` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -226,12 +226,12 @@ DROP TABLE IF EXISTS `oauth_client_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_client_token` (
-                                      `token_id` varchar(255) DEFAULT NULL,
-                                      `token` mediumblob,
-                                      `authentication_id` varchar(255) NOT NULL,
-                                      `user_name` varchar(255) DEFAULT NULL,
-                                      `client_id` varchar(255) DEFAULT NULL,
-                                      PRIMARY KEY (`authentication_id`)
+  `token_id` varchar(255) DEFAULT NULL,
+  `token` mediumblob,
+  `authentication_id` varchar(255) NOT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `client_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`authentication_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -252,8 +252,8 @@ DROP TABLE IF EXISTS `oauth_code`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_code` (
-                              `code` varchar(255) DEFAULT NULL,
-                              `authentication` mediumblob
+  `code` varchar(255) DEFAULT NULL,
+  `authentication` mediumblob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -274,9 +274,9 @@ DROP TABLE IF EXISTS `oauth_refresh_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_refresh_token` (
-                                       `token_id` varchar(255) NOT NULL,
-                                       `token` mediumblob,
-                                       `authentication` mediumblob
+  `token_id` varchar(255) NOT NULL,
+  `token` mediumblob,
+  `authentication` mediumblob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -297,15 +297,15 @@ DROP TABLE IF EXISTS `order_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_detail` (
-                                `id` int NOT NULL AUTO_INCREMENT,
-                                `order_id` int NOT NULL,
-                                `product_variant_id` int DEFAULT NULL,
-                                `amount` int NOT NULL,
-                                PRIMARY KEY (`id`),
-                                KEY `product_variant_id_ibfk_1` (`product_variant_id`),
-                                KEY `order_id` (`order_id`),
-                                CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-                                CONSTRAINT `product_variant_id_ibfk_1` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variant` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int NOT NULL,
+  `product_variant_id` int DEFAULT NULL,
+  `amount` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_variant_id_ibfk_1` (`product_variant_id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  CONSTRAINT `product_variant_id_ibfk_1` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variant` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -327,28 +327,28 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
-                          `id` int NOT NULL AUTO_INCREMENT,
-                          `user_id` int NOT NULL,
-                          `ship_name` varchar(100) NOT NULL,
-                          `ship_address` varchar(100) NOT NULL,
-                          `billing_address` varchar(100) NOT NULL,
-                          `city` varchar(50) NOT NULL,
-                          `state` varchar(50) NOT NULL,
-                          `zip` varchar(20) DEFAULT NULL,
-                          `country` varchar(50) NOT NULL,
-                          `phone` varchar(20) NOT NULL,
-                          `total_price` float NOT NULL,
-                          `total_cargo_price` float NOT NULL,
-                          `discount_id` int DEFAULT NULL,
-                          `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                          `shipped` tinyint(1) NOT NULL DEFAULT '0',
-                          `cargo_firm` varchar(100) DEFAULT NULL,
-                          `tracking_number` varchar(80) DEFAULT NULL,
-                          PRIMARY KEY (`id`),
-                          KEY `discount_id` (`discount_id`),
-                          KEY `user_id` (`user_id`),
-                          CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-                          CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `ship_name` varchar(100) NOT NULL,
+  `ship_address` varchar(100) NOT NULL,
+  `billing_address` varchar(100) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `state` varchar(50) NOT NULL,
+  `zip` varchar(20) DEFAULT NULL,
+  `country` varchar(50) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `total_price` float NOT NULL,
+  `total_cargo_price` float NOT NULL,
+  `discount_id` int DEFAULT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `shipped` tinyint(1) NOT NULL DEFAULT '0',
+  `cargo_firm` varchar(100) DEFAULT NULL,
+  `tracking_number` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `discount_id` (`discount_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -370,13 +370,13 @@ DROP TABLE IF EXISTS `password_reset_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `password_reset_token` (
-                                        `id` int NOT NULL AUTO_INCREMENT,
-                                        `token` varchar(255) NOT NULL,
-                                        `expiry_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                        `user_id` int NOT NULL,
-                                        PRIMARY KEY (`id`),
-                                        UNIQUE KEY `user_id` (`user_id`),
-                                        CONSTRAINT `password_reset_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `token` varchar(255) NOT NULL,
+  `expiry_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  CONSTRAINT `password_reset_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -397,18 +397,18 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
-                           `id` int NOT NULL AUTO_INCREMENT,
-                           `category_id` int DEFAULT NULL,
-                           `sku` varchar(50) NOT NULL,
-                           `name` varchar(100) NOT NULL,
-                           `url` varchar(100) NOT NULL,
-                           `long_desc` text NOT NULL,
-                           `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                           `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                           `unlimited` tinyint(1) DEFAULT '1',
-                           PRIMARY KEY (`id`),
-                           KEY `category_id` (`category_id`),
-                           CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `category_id` int DEFAULT NULL,
+  `sku` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `long_desc` text NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `unlimited` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -430,10 +430,10 @@ DROP TABLE IF EXISTS `product_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_category` (
-                                    `id` int NOT NULL AUTO_INCREMENT,
-                                    `name` varchar(50) NOT NULL,
-                                    PRIMARY KEY (`id`),
-                                    UNIQUE KEY `name` (`name`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -455,12 +455,12 @@ DROP TABLE IF EXISTS `product_variant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_variant` (
-                                   `id` int NOT NULL AUTO_INCREMENT,
-                                   `product_id` int DEFAULT NULL,
-                                   `color_id` int NOT NULL,
-                                   `width` varchar(100) DEFAULT NULL,
-                                   `height` varchar(100) DEFAULT NULL,
-                                   `price` float(100,2) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `product_id` int DEFAULT NULL,
+  `color_id` int NOT NULL,
+  `width` varchar(100) DEFAULT NULL,
+  `height` varchar(100) DEFAULT NULL,
+  `price` float(100,2) NOT NULL,
   `composition` varchar(259) DEFAULT NULL,
   `cargo_price` float(100,2) NOT NULL,
   `tax_percent` int DEFAULT '0',
@@ -495,21 +495,21 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `email` varchar(500) NOT NULL,
-                        `password` varchar(500) NOT NULL,
-                        `first_name` varchar(50) DEFAULT NULL,
-                        `last_name` varchar(50) DEFAULT NULL,
-                        `city` varchar(90) DEFAULT NULL,
-                        `state` varchar(20) DEFAULT NULL,
-                        `zip` varchar(12) DEFAULT NULL,
-                        `email_verified` tinyint(1) DEFAULT '0',
-                        `registration_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                        `phone` varchar(20) DEFAULT NULL,
-                        `country` varchar(20) DEFAULT NULL,
-                        `address` varchar(100) DEFAULT NULL,
-                        PRIMARY KEY (`id`),
-                        UNIQUE KEY `email` (`email`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(500) NOT NULL,
+  `password` varchar(500) NOT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `city` varchar(90) DEFAULT NULL,
+  `state` varchar(20) DEFAULT NULL,
+  `zip` varchar(12) DEFAULT NULL,
+  `email_verified` tinyint(1) DEFAULT '0',
+  `registration_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `phone` varchar(20) DEFAULT NULL,
+  `country` varchar(20) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -531,13 +531,13 @@ DROP TABLE IF EXISTS `verification_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `verification_token` (
-                                      `id` int NOT NULL AUTO_INCREMENT,
-                                      `token` varchar(255) NOT NULL,
-                                      `expiry_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                      `user_id` int NOT NULL,
-                                      PRIMARY KEY (`id`),
-                                      KEY `verification_token_ibfk_1` (`user_id`),
-                                      CONSTRAINT `verification_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `token` varchar(255) NOT NULL,
+  `expiry_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `verification_token_ibfk_1` (`user_id`),
+  CONSTRAINT `verification_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
