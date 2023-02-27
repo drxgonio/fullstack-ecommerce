@@ -30,3 +30,43 @@ Step 4: Copy file dump to local machine. You need type: ls on terminal to check 
 ```sh
 docker cp <container-id>:<output-file>.sql .
 ```
+
+## Deploy FE to GCP App Engine
+
+Step 1: Need login with gcloud
+
+```sh
+gcloud auth login
+```
+
+Step 2: Set projectId 
+
+```sh
+gcloud config set project drg-ecomerce
+```
+
+
+Step 3: Get list project 
+
+```sh
+gcloud projects list
+```
+
+Step 4: Gcloud init
+
+```sh
+gcloud projects list
+```
+
+Step 5: Get app deploy 
+
+```sh
+gcloud app deploy 
+```
+
+Step 6: Verify on browser
+
+```sh
+https://PROJECT_ID.REGION_ID.r.appspot.com
+```
+
