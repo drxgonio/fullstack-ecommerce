@@ -22,13 +22,13 @@ export class ImageSliderComponent implements OnInit {
   ngOnInit() {
     config.carausel = [
       {
-        title: "Make with",
-        text: "Tủ lạnh giá rẻ",
+        title: "DEV",
+        text: "DEV",
         imageUrl: "https://res.cloudinary.com/keyist/image/upload/v1603226535/slider1_ccifkp.png"
       },
       {
         title: "TEST",
-        text: "Quạt gió",
+        text: "TEST",
         imageUrl: "https://res.cloudinary.com/keyist/image/upload/v1603226536/slider2_fmrxrd.jpg"
       }
     ]
