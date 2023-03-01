@@ -82,7 +82,7 @@ public class AuthController {
     User user = new User();
     user.setEmail(registerUserRequest.getEmail());
     user.setPassword(encoder.encode(registerUserRequest.getPassword()));
-    user.setEmailVerified(0);
+    user.setEmailVerified(1);
     User sa = userService.saveUser(user);
     refreshTokenService.createRefreshToken(sa.getId());
     return new ResponseEntity<>(new UserResponse(), HttpStatus.OK);
