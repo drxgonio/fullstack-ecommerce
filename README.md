@@ -16,7 +16,17 @@ docker ps
 Step 2: Use the docker exec command to execute the mysqldump command inside the container:
 
 ```sh
-docker exec <container_name_or_id> mysqldump --databases <database_name> -u <username> -p <password> > <output_file_name>.sql
+docker exec -it {containerID} /bin/bash
+```
+Example is:
+```sh
+docker exec -it ea35336ea613 /bin/bash
+```
+
+
+Next:
+```sh
+mysqldump -u root -p2105 keyist> data.sql
 ```
 
 Step 3: Exit bash (have space in firt string):
@@ -29,6 +39,10 @@ Step 4: Copy file dump to local machine. You need type: ls on terminal to check 
 
 ```sh
 docker cp <container-id>:<output-file>.sql .
+```
+Example is: 
+```sh
+docker cp ea35336ea613:data.sql .
 ```
 
 ## Deploy FE to GCP App Engine
