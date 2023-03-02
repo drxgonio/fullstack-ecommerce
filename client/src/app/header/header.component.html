@@ -1,7 +1,7 @@
 <div class="header fixed-top">
 
   <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="logo navbar-brand" routerLink="/"><b>PHAN GIA</b></a>
+    <a class="logo navbar-brand" routerLink="/"><b>Ecommerce</b></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="isCollapsed = !isCollapsed"
       data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -13,14 +13,14 @@
       <div class="home">
         <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
           <a class="nav-link" routerLinkActive="active" routerLink="/"
-            [routerLinkActiveOptions]="{exact: true}">Trang chủ</a>
+            [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
         </div>
       </div>
 
       <div class="products">
         <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
           <a class="nav-link" routerLinkActive="active" routerLink="/browse"
-            [routerLinkActiveOptions]="{exact: true}">Sản phẩm</a>
+            [routerLinkActiveOptions]="{exact: true}">Product</a>
         </div>
       </div>
 
